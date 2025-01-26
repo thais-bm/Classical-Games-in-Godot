@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://deebg1jb4kljh"]
+
+[ext_resource type="Texture2D" uid="uid://desxqfdcw2oiw" path="res://assets/arts/Player.png" id="1_owq5b"]
+[ext_resource type="Script" path="res://assets/scripts/player/input_movement.gd" id="2_drjsv"]
+[ext_resource type="Script" path="res://assets/scripts/player/movement.gd" id="3_1dtps"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4vcre"]
+radius = 9.0
+height = 130.0
+
+[node name="Player" type="CharacterBody2D"]
+position = Vector2(0, 5)
+rotation = 3.14159
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_owq5b")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_4vcre")
+
+[node name="InputMovement" type="Node" parent="."]
+script = ExtResource("2_drjsv")
+
+[node name="Movement" type="Node" parent="."]
+script = ExtResource("3_1dtps")
+
+[connection signal="movement_inputed" from="InputMovement" to="Movement" method="move"]

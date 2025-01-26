@@ -1,0 +1,69 @@
+[gd_scene load_steps=12 format=3 uid="uid://b5m54ulgrjrtc"]
+
+[ext_resource type="PackedScene" uid="uid://deebg1jb4kljh" path="res://assets/scenes/player.tscn" id="1_ge0fi"]
+[ext_resource type="Texture2D" uid="uid://cltqrnlu0djmx" path="res://assets/arts/ScoreBar.png" id="1_xxfxq"]
+[ext_resource type="Texture2D" uid="uid://be7dce5unqc30" path="res://assets/arts/Board.png" id="2_p3qbx"]
+[ext_resource type="PackedScene" uid="uid://6u5vpexbxg21" path="res://assets/scenes/ball.tscn" id="2_p7rvf"]
+[ext_resource type="Script" path="res://assets/scripts/in-game-ui/background.gd" id="3_urgrj"]
+[ext_resource type="Script" path="res://assets/scripts/game_manager.gd" id="5_5ko43"]
+[ext_resource type="PackedScene" uid="uid://5kmgt17nrrim" path="res://assets/scenes/enemy.tscn" id="6_elh4i"]
+
+[sub_resource type="Theme" id="Theme_h6c78"]
+
+[sub_resource type="Theme" id="Theme_k4yf7"]
+
+[sub_resource type="ImageTexture" id="ImageTexture_87fwf"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_t28ri"]
+bounce = 1.0
+
+[node name="Main" type="Node2D"]
+
+[node name="GameUI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Background" type="TextureRect" parent="GameUI"]
+layout_mode = 2
+offset_right = 1152.0
+offset_bottom = 648.0
+texture = ExtResource("2_p3qbx")
+script = ExtResource("3_urgrj")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="GameUI"]
+layout_direction = 2
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 47.0
+theme = SubResource("Theme_h6c78")
+alignment = 1
+
+[node name="ScorePlayer1" type="TextureRect" parent="GameUI/HBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_k4yf7")
+texture = ExtResource("1_xxfxq")
+
+[node name="Timer" type="TextureRect" parent="GameUI/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+texture = SubResource("ImageTexture_87fwf")
+flip_h = true
+
+[node name="ScorePlayer2" type="TextureRect" parent="GameUI/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("1_xxfxq")
+flip_h = true
+
+[node name="Player" parent="." instance=ExtResource("1_ge0fi")]
+position = Vector2(0, 0)
+
+[node name="Ball" parent="." instance=ExtResource("2_p7rvf")]
+position = Vector2(53, 152)
+physics_material_override = SubResource("PhysicsMaterial_t28ri")
+
+[node name="GameManager" type="Node" parent="."]
+script = ExtResource("5_5ko43")
+
+[node name="Enemy" parent="." instance=ExtResource("6_elh4i")]

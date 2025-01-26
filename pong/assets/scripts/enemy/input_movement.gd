@@ -10,9 +10,9 @@ signal stopped
 # Recevies input and sends a vector to 'move func' in movement.gd
 func _process(delta: float) -> void:
 	var direction = Vector2.ZERO
-	if Input.is_action_pressed("move_up"):
+	if Input.is_action_pressed("enemy_up"):
 		direction = Vector2.UP
-	if Input.is_action_pressed("move_down"):
+	if Input.is_action_pressed("enemy_down"):
 		direction = Vector2.DOWN
 		
 	if direction != Vector2.ZERO:

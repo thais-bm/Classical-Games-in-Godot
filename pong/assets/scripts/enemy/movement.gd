@@ -1,7 +1,7 @@
 extends Node
 
 # Initial setup
-@onready var INITIAL_POSITION : float = (get_viewport().size.x / 20)
+@onready var INITIAL_POSITION : float = (get_viewport().size.x / 20)  * 19
 
 # Speed constants
 var speed : float = 10
@@ -10,10 +10,8 @@ var CONSTANT_VALUE : float = 50
 signal moved
 
 func _ready() -> void:
-	# Start position
 	get_parent().position.x = INITIAL_POSITION
 	get_parent().position.y = (get_viewport().size.y / 2)
-	
 
 func move(direction : Vector2):
 	# Move signal

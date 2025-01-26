@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://5kmgt17nrrim"]
+
+[ext_resource type="Texture2D" uid="uid://ygfj60qpxly1" path="res://assets/arts/Computer.png" id="1_nqpud"]
+[ext_resource type="Script" path="res://assets/scripts/enemy/input_movement.gd" id="2_jridg"]
+[ext_resource type="Script" path="res://assets/scripts/enemy/movement.gd" id="3_wyvy4"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_l3gj6"]
+radius = 9.0
+height = 132.0
+
+[node name="Enemy" type="CharacterBody2D"]
+rotation = 3.14159
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_nqpud")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_l3gj6")
+
+[node name="InputMovement" type="Node" parent="."]
+script = ExtResource("2_jridg")
+
+[node name="Movement" type="Node" parent="."]
+script = ExtResource("3_wyvy4")
+
+[connection signal="movement_inputed" from="InputMovement" to="Movement" method="move"]
