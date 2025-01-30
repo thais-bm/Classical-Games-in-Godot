@@ -9,8 +9,8 @@ radius = 9.0
 height = 130.0
 
 [node name="Player" type="CharacterBody2D"]
-position = Vector2(0, 5)
 rotation = 3.14159
+motion_mode = 1
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_owq5b")

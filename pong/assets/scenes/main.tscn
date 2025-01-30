@@ -1,23 +1,41 @@
-[gd_scene load_steps=12 format=3 uid="uid://b5m54ulgrjrtc"]
+[gd_scene load_steps=19 format=3 uid="uid://b5m54ulgrjrtc"]
 
 [ext_resource type="PackedScene" uid="uid://deebg1jb4kljh" path="res://assets/scenes/player.tscn" id="1_ge0fi"]
 [ext_resource type="Texture2D" uid="uid://cltqrnlu0djmx" path="res://assets/arts/ScoreBar.png" id="1_xxfxq"]
 [ext_resource type="Texture2D" uid="uid://be7dce5unqc30" path="res://assets/arts/Board.png" id="2_p3qbx"]
-[ext_resource type="PackedScene" uid="uid://6u5vpexbxg21" path="res://assets/scenes/ball.tscn" id="2_p7rvf"]
 [ext_resource type="Script" path="res://assets/scripts/in-game-ui/background.gd" id="3_urgrj"]
 [ext_resource type="Script" path="res://assets/scripts/game_manager.gd" id="5_5ko43"]
+[ext_resource type="FontFile" uid="uid://halr51htw4v" path="res://assets/fonts/Teko-VariableFont.ttf" id="5_fbq8w"]
 [ext_resource type="PackedScene" uid="uid://5kmgt17nrrim" path="res://assets/scenes/enemy.tscn" id="6_elh4i"]
+[ext_resource type="Script" path="res://assets/scripts/walls-and-goals/player_one_goal.gd" id="8_pwwo2"]
+[ext_resource type="Script" path="res://assets/scripts/walls-and-goals/player_two_goal.gd" id="9_1gfxv"]
+[ext_resource type="AudioStream" uid="uid://dqy38knu1v7yw" path="res://assets/audio/score.wav" id="10_nbrtd"]
 
 [sub_resource type="Theme" id="Theme_h6c78"]
 
 [sub_resource type="Theme" id="Theme_k4yf7"]
 
+[sub_resource type="LabelSettings" id="LabelSettings_glcwu"]
+font = ExtResource("5_fbq8w")
+font_size = 33
+
 [sub_resource type="ImageTexture" id="ImageTexture_87fwf"]
 
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_t28ri"]
-bounce = 1.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0b7xs"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_npky1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qmwv4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s2gda"]
 
 [node name="Main" type="Node2D"]
+
+[node name="Score" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("10_nbrtd")
+
+[node name="GameManager" type="Node" parent="."]
+script = ExtResource("5_5ko43")
 
 [node name="GameUI" type="Control" parent="."]
 layout_mode = 3
@@ -45,6 +63,16 @@ layout_mode = 2
 theme = SubResource("Theme_k4yf7")
 texture = ExtResource("1_xxfxq")
 
+[node name="Score1" type="Label" parent="GameUI/HBoxContainer/ScorePlayer1"]
+layout_mode = 0
+offset_left = 130.0
+offset_right = 234.0
+offset_bottom = 48.0
+text = "Jogador 1: 0"
+label_settings = SubResource("LabelSettings_glcwu")
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="Timer" type="TextureRect" parent="GameUI/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -56,14 +84,57 @@ layout_mode = 2
 texture = ExtResource("1_xxfxq")
 flip_h = true
 
-[node name="Player" parent="." instance=ExtResource("1_ge0fi")]
-position = Vector2(0, 0)
+[node name="Score2" type="Label" parent="GameUI/HBoxContainer/ScorePlayer2"]
+layout_mode = 0
+offset_left = 130.0
+offset_right = 234.0
+offset_bottom = 48.0
+text = "Jogador 2: 0"
+label_settings = SubResource("LabelSettings_glcwu")
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="Ball" parent="." instance=ExtResource("2_p7rvf")]
-position = Vector2(53, 152)
-physics_material_override = SubResource("PhysicsMaterial_t28ri")
+[node name="Player" parent="." groups=["raquetes"] instance=ExtResource("1_ge0fi")]
+position = Vector2(-150, 356)
 
-[node name="GameManager" type="Node" parent="."]
-script = ExtResource("5_5ko43")
+[node name="Enemy" parent="." groups=["raquetes"] instance=ExtResource("6_elh4i")]
+position = Vector2(1288, 365)
 
-[node name="Enemy" parent="." instance=ExtResource("6_elh4i")]
+[node name="Walls and Goals" type="Node2D" parent="."]
+position = Vector2(576, 324)
+
+[node name="UpperWall" type="StaticBody2D" parent="Walls and Goals" groups=["paredes"]]
+position = Vector2(0, -300)
+scale = Vector2(57.44, 2.36)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls and Goals/UpperWall"]
+shape = SubResource("RectangleShape2D_0b7xs")
+
+[node name="BottomWall" type="StaticBody2D" parent="Walls and Goals" groups=["paredes", "raquetes"]]
+position = Vector2(0, 348)
+scale = Vector2(57.44, 2.36)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls and Goals/BottomWall"]
+shape = SubResource("RectangleShape2D_npky1")
+
+[node name="PlayerOneGoal" type="Area2D" parent="Walls and Goals"]
+position = Vector2(641, 0)
+scale = Vector2(6.28588, 37.362)
+script = ExtResource("8_pwwo2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls and Goals/PlayerOneGoal"]
+scale = Vector2(1, 0.868315)
+shape = SubResource("RectangleShape2D_qmwv4")
+
+[node name="PlayerTwoGoal" type="Area2D" parent="Walls and Goals"]
+position = Vector2(-624, 0)
+scale = Vector2(4.92, 32.48)
+script = ExtResource("9_1gfxv")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls and Goals/PlayerTwoGoal"]
+shape = SubResource("RectangleShape2D_s2gda")
+
+[connection signal="body_entered" from="Walls and Goals/PlayerOneGoal" to="Walls and Goals/PlayerOneGoal" method="_on_body_entered"]
+[connection signal="scored" from="Walls and Goals/PlayerOneGoal" to="GameManager" method="score_player_1"]
+[connection signal="body_entered" from="Walls and Goals/PlayerTwoGoal" to="Walls and Goals/PlayerTwoGoal" method="_on_body_entered"]
+[connection signal="scored" from="Walls and Goals/PlayerTwoGoal" to="GameManager" method="score_player_2"]

@@ -1,13 +1,22 @@
-[gd_scene load_steps=4 format=3 uid="uid://6u5vpexbxg21"]
+[gd_scene load_steps=6 format=3 uid="uid://6u5vpexbxg21"]
 
 [ext_resource type="Texture2D" uid="uid://c8bnx8n2f23iv" path="res://assets/arts/Ball.png" id="1_2qk30"]
 [ext_resource type="Script" path="res://assets/scripts/ball/ball.gd" id="1_4jpla"]
+[ext_resource type="AudioStream" uid="uid://bcv5i6uhkcox8" path="res://assets/audio/bounce.wav" id="3_x2ngd"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_utcqb"]
+friction = 0.0
+bounce = 1.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_78syv"]
 radius = 15.0
 
 [node name="Ball" type="RigidBody2D"]
+mass = 0.2
+physics_material_override = SubResource("PhysicsMaterial_utcqb")
 gravity_scale = 0.0
+linear_damp_mode = 1
+angular_damp_mode = 1
 script = ExtResource("1_4jpla")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -15,3 +24,14 @@ texture = ExtResource("1_2qk30")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_78syv")
+
+[node name="Bounce" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_x2ngd")
+
+[node name="Area2D" type="Area2D" parent="."]
+scale = Vector2(1.1, 1.1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_78syv")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_body_entered"]
