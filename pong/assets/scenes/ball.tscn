@@ -25,13 +25,14 @@ texture = ExtResource("1_2qk30")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_78syv")
 
-[node name="Bounce" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("3_x2ngd")
-
 [node name="Area2D" type="Area2D" parent="."]
 scale = Vector2(1.1, 1.1)
+audio_bus_override = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("CircleShape2D_78syv")
 
-[connection signal="body_entered" from="Area2D" to="." method="_on_body_entered"]
+[node name="Bounce" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_x2ngd")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
