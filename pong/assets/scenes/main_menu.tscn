@@ -29,8 +29,9 @@ texture = ExtResource("1_hnmlt")
 
 [node name="HBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 0
-offset_right = 1152.0
+offset_right = 1193.0
 offset_bottom = 648.0
+scale = Vector2(0.966, 1)
 
 [node name="Header" type="HBoxContainer" parent="HBoxContainer"]
 layout_mode = 2
@@ -52,6 +53,7 @@ size_flags_vertical = 3
 
 [node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/Center"]
 layout_mode = 2
+size_flags_vertical = 3
 theme_override_constants/margin_left = 500
 theme_override_constants/margin_right = 500
 theme_override_constants/margin_bottom = 50
@@ -60,7 +62,21 @@ theme_override_constants/margin_bottom = 50
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_3khpu")
 theme_override_font_sizes/font_size = 30
-text = "Jogar
+text = "Jogar vs Computador
+"
+icon_alignment = 1
+
+[node name="MarginContainer3" type="MarginContainer" parent="HBoxContainer/Center"]
+layout_mode = 2
+theme_override_constants/margin_left = 500
+theme_override_constants/margin_right = 500
+theme_override_constants/margin_bottom = 50
+
+[node name="Play" type="Button" parent="HBoxContainer/Center/MarginContainer3"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_3khpu")
+theme_override_font_sizes/font_size = 30
+text = "Jogar Multiplayer Local
 "
 icon_alignment = 1
 
@@ -68,7 +84,7 @@ icon_alignment = 1
 layout_mode = 2
 theme_override_constants/margin_left = 500
 theme_override_constants/margin_right = 500
-theme_override_constants/margin_bottom = 50
+theme_override_constants/margin_bottom = 100
 
 [node name="Exit" type="Button" parent="HBoxContainer/Center/MarginContainer2"]
 layout_mode = 2
@@ -78,4 +94,5 @@ text = "Sair"
 icon_alignment = 1
 
 [connection signal="pressed" from="HBoxContainer/Center/MarginContainer/Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="HBoxContainer/Center/MarginContainer3/Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="HBoxContainer/Center/MarginContainer2/Exit" to="." method="_on_exit_pressed"]

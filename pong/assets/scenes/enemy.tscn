@@ -24,4 +24,5 @@ script = ExtResource("2_jridg")
 [node name="Movement" type="Node" parent="."]
 script = ExtResource("3_wyvy4")
 
+[connection signal="computer_moved" from="InputMovement" to="InputMovement" method="computer_enemy"]
 [connection signal="movement_inputed" from="InputMovement" to="Movement" method="move"]

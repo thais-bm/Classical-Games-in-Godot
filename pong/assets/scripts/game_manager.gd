@@ -4,7 +4,7 @@ var player_one_score : int = 0
 var player_two_score : int = 0
 
 var ball_scene : PackedScene = preload("res://assets/scenes/ball.tscn")
-var ball : Node = null
+var ball : RigidBody2D = null
 
 func _ready() -> void:
 	ball_initial_setup()
@@ -21,7 +21,7 @@ func _process(_delta: float) -> void:
 
 func ball_initial_setup():
 	if is_instance_valid(ball):
-		ball.queue_free()
+		ball.position = get_viewport().size / 2
 	ball = ball_scene.instantiate()
 	add_child(ball)
 	
@@ -49,7 +49,7 @@ func score_player_1(points : int):
 	score.play()
 	
 	if is_instance_valid(ball):
-		ball.queue_free()
+		ball.position = get_viewport().size / 2
 	ball_initial_setup()
 
 func score_player_2(points : int):
@@ -62,11 +62,10 @@ func score_player_2(points : int):
 	score.play()
 	
 	if is_instance_valid(ball):
-		ball.queue_free()
+		ball.position = get_viewport().size / 2
 	ball_initial_setup()
 	
 func game_over_checker():
 	if player_one_score >= 5 or player_two_score >= 5:
 		var game_over = preload("res://assets/scenes/game_over.tscn")
 		get_tree().change_scene_to_packed(game_over)
-	pass

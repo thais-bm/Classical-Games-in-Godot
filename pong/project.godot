@@ -27,6 +27,7 @@ project/assembly_name="Pong"
 
 raquetes=""
 paredes=""
+bola=""
 
 [input]
 

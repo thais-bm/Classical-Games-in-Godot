@@ -14,6 +14,5 @@ func _on_novo_jogo_pressed() -> void:
 	var scene : PackedScene = preload("res://assets/scenes/main.tscn")
 	get_tree().change_scene_to_packed(scene)
 
-
 func _on_sair_pressed() -> void:
 	get_tree().quit()
